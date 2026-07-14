@@ -47,7 +47,8 @@ El aseguramiento de la calidad de software (SQA) moderno requiere de un enfoque 
 #### 4. Rendimiento y Pruebas No Funcionales con k6
 
 - Se diseñaron e implementaron scripts automatizados en JavaScript utilizando Grafana k6 para evaluar el comportamiento elástico del servidor.
-- Tabla comparativa
+- Tabla comparativa:
+  
   <img width="717" height="481" alt="image" src="https://github.com/user-attachments/assets/ee904892-3f7f-4250-8348-0f38e813c2c6" />
 
 #### 5.  CONCLUSIONES
