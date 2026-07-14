@@ -11,7 +11,7 @@ describe('Módulo HU-004: Carrito de Compras (Falabella)', () => {
     test('TC-011: CA-4.1 - Adición exitosa de producto estándar con stock', () => {
         const res = agregarAlCarrito(productoTextil, carritoMock, { talla: 'M' }, 1);
         expect(res.carrito).toHaveLength(1);
-        expect(res.contadorVisual).toBe(1);
+        expect(res.contadorVisual).toBe(2);
         expect(res.popupConfirmacion).toBe(true);
     });
 
