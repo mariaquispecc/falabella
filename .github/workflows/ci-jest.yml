@@ -24,6 +24,15 @@ jobs:
     - name: Instalar dependencias
       run: npm install
 
-    - name: Ejecutar pruebas de Jest (Unit & API)
-      # Ejecuta únicamente las pruebas dentro de la carpeta unit
-      run: npx jest tests/unit --colors
+      # Ejecutar tests Y verificar umbrales de cobertura
+    # Si la cobertura baja del 70%, este paso falla → pipeline en rojo
+    - name: Tests + Quality Gate de cobertura
+      run: npm run test/unit:coverage
+    # Subir el reporte HTML como artefacto descargable
+    - name: Subir reporte de cobertura
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-report
+        path: coverage/lcov-report/
+        retention-days: 7
