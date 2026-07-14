@@ -1,0 +1,44 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Desactiva el clonado superficial para un mejor análisis de relevancia
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar cobertura de Jest
+        # Genera reportes de cobertura (coverage) para que SonarCloud pueda leerlos
+        run: npx jest tests/unit tests/api --coverage
+
+      - name: Analizar con SonarCloud
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Generado automáticamente por GitHub
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # Debes agregarlo a los secrets de tu repo
+        with:
+          args: >
+            -Dsonar.organization=TU_ORGANIZACION_SONARCLOUD
+            -Dsonar.projectKey=TU_PROJECT_KEY_SONARCLOUD
+            -Dsonar.sources=src
+            -Dsonar.tests=tests/unit,tests/api
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.exclusions=node_modules/**,playwright-report/**,test-results/**,tests/e2e/**
