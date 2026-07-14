@@ -1,0 +1,29 @@
+name: CI Jest (Unit & API Tests)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-unit:
+    name: Ejecutar suite Jest
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24' # Puedes cambiarla por tu versión de Node local
+        cache: 'npm'
+
+    - name: Instalar dependencias
+      run: npm install
+
+    - name: Ejecutar pruebas de Jest (Unit & API)
+      # Ejecuta únicamente las pruebas dentro de la carpeta unit
+      run: npx jest tests/unit --colors
