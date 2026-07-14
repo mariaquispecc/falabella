@@ -1,5 +1,9 @@
 {
     "github-actions.workflows.pinned.workflows": [
         "src/.github/workflows/playwright.yml"
-    ]
+    ],
+    "sonarlint.connectedMode.project": {
+        "connectionId": "mariaquispecc",
+        "projectKey": "mariaquispecc/falabella/settings/secrets/actions/"
+    }
 }

@@ -27,7 +27,7 @@ jobs:
       # Ejecutar tests Y verificar umbrales de cobertura
     # Si la cobertura baja del 70%, este paso falla → pipeline en rojo
     - name: Tests + Quality Gate de cobertura
-      run: npm run test/unit:coverage
+      run: npm run test:coverage
     # Subir el reporte HTML como artefacto descargable
     - name: Subir reporte de cobertura
       uses: actions/upload-artifact@v4
